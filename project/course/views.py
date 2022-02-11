@@ -36,8 +36,9 @@ class CourseListView(TemplateView):
                             Course.objects.filter(category=category_id))
                 except Exception:
                     pass
-            return (f"All {Course.objects.count()} courses",
-                    "Browse through all courses", Course.objects.all())
+            return ("All courses",
+                    f"Browse through {Course.objects.count()} courses",
+                    Course.objects.all())
 
         context['title'] = get_category_infos()[0]
         context['description'] = get_category_infos()[1]
