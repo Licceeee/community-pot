@@ -243,7 +243,7 @@ p {
 .ribbon {
   position: relative;
   display: inline-block;
-  z-index: 2;
+  z-index: 1;
   height: 30px;
 }
 
@@ -261,8 +261,8 @@ p {
   right: 0;
   -webkit-transform-origin: 0px 0px;
           transform-origin: 0px 0px;
-  -webkit-transform: translate(51%, -46.5px) rotate(45deg);
-          transform: translate(51%, -46.5px) rotate(45deg);
+  -webkit-transform: translate(51.3%, -47px) rotate(45deg);
+          transform: translate(51.3%, -47px) rotate(45deg);
 }
 
 .ribbon__bends {
@@ -275,13 +275,13 @@ p {
 
 .ribbon__text {
   position: absolute;
-  top: 5px;
+  top: 4px;
   left: 0;
   right: 0;
   bottom: 0;
   text-align: center;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1;
   font-weight: bold;
   color: #fff;
@@ -311,7 +311,7 @@ p {
   position: absolute;
   right: 10px;
   top: 10px;
-  z-index: 2;
+  z-index: 1;
   color: #fff;
   padding: 5px;
   border-radius: 5px;

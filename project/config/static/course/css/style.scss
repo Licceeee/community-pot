@@ -228,7 +228,7 @@ $card-radius: 10px;
 .ribbon {
   position: relative;
   display: inline-block; 
-  z-index: 2;
+  z-index: 1;
   height: 30px;
 }
 
@@ -245,7 +245,7 @@ $card-radius: 10px;
     position: absolute;
     right:0;
     transform-origin: 0px 0px;
-    transform: translate(51%, -46.5px) rotate(45deg); //should be - $ribbon-height + $ribbon-bends, dont' know why that 1px issue :/
+    transform: translate(51.3%, -47px) rotate(45deg); //should be - $ribbon-height + $ribbon-bends, dont' know why that 1px issue :/
   }
 }
 
@@ -259,13 +259,13 @@ $card-radius: 10px;
 
 .ribbon__text {
   position: absolute;
-  top:5px;
+  top:4px;
   left:0;
   right:0;
   bottom:0;
   text-align: center;
   text-transform: uppercase;
-  font-size:11px;
+  font-size:13px;
   line-height: 1;
   font-weight: bold;
   color: $white;
@@ -313,7 +313,7 @@ $card-radius: 10px;
   position: absolute;
   right: 10px;
   top: 10px;
-  z-index: 2;
+  z-index: 1;
   color: $white;
   padding: 5px;
   border-radius: 5px;
