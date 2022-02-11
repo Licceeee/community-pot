@@ -19,7 +19,8 @@ class CustomUserAdmin(UserAdmin):
     # when edit existing user
     fieldsets = (
         (None, {'fields': ('email', 'password', 'first_name', 'last_name',
-                           'is_superuser', 'date_joined', 'last_login',  'groups')}),
+                           'is_superuser', 'date_joined', 'last_login',
+                           'groups')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     # when adding a new user

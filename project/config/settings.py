@@ -41,9 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    # apps
     'user.apps.UserConfig',
     'core.apps.CoreConfig',
     'course.apps.CourseConfig',
+    'last_active.apps.LastActiveConfig',
+    # 3rd party
     'adminsortable2',
 ]
 
@@ -55,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'last_active.middleware.LastActiveMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -153,7 +158,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'config/static',
 ]
 
-
+SITE_ID = 1
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 

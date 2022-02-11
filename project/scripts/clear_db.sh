@@ -3,7 +3,6 @@
 rm -rf course/migrations/*
 rm -rf user/migrations/*
 rm -rf core/migrations/*
-rm -rf workout/migrations/*
 
 # python manage.py migrate admin zero
 # python manage.py migrate auth zero
@@ -14,7 +13,6 @@ python manage.py makemigrations
 python manage.py makemigrations user
 python manage.py makemigrations core
 python manage.py makemigrations course
-python manage.py makemigrations
 
 python manage.py migrate
 # python manage.py createsuperuser
