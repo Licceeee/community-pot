@@ -1,0 +1,31 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f7f7f7;
+  color: #bd4545;
+}
+
+body .main {
+  padding: 2% 0;
+  text-align: center;
+}
+
+body .custom-input {
+  width: 50%;
+}
+
+a {
+  color: #747474;
+}
+
+a:hover {
+  color: #295563;
+}
+
+.video-player {
+  height: 70vh;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,90 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<div class="col-12 p-5">
+    <h4 class="pt-2">{{ object.title }}</h4>
+    <h6 class="pb-3 corsivo">with {{ object.teacher }}</h6>
+    <div class="px-5">
+        {{ object.description }}
+    </div>
+</div>
+
+
+
+<!-- Section docs -->
+
+{% if object.coursedoc_set.all|length > 0 %}
+<div class="p-2 border">
+    <div class="course-material-title pb-3">
+        <h6>Course Materials</h6>
+    </div>
+
+    <div class="docs-box">
+        {% for doc in object.coursedoc_set.all %}
+        <div class="docs px-2">
+
+            <a href="{{ MEDIA_URL }}{{ doc.file }}" target="blank_">
+                <img class="pdf-img" src="{% static 'assets/img/Doc.svg' %}" />
+            </a>
+            <div>
+                <small class="doc-title">
+                    {{ doc.title }}
+                </small>
+            </div>
+            {% if doc.day %}
+            <small class="mini">
+                Day {{ doc.day }}
+            </small>
+            {% else %}
+            <p></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<h6 class="corsivo p-3"># Lessons: {{ nr_lessons }}</h6>
+
+<div class="content-left">
+
+    {% for lesson in object.lesson_set.all %}
+
+    <div class="col-12 col-md-6 col-xl-4 p-3">
+        <div class="course-box lesson-box p-3">
+            {% if lesson.day %}
+            <div class="day">Day {{ lesson.day }}</div>
+            {% endif %}
+            <div class="mb-3">
+
+                <video controls class="course-intro" preload="metadata">
+                    <source
+                        src="{{ MEDIA_URL }}courses/{{ lesson.course.category.name }}/{{ lesson.course.folder_name }}/{{  lesson.url }}#t=0.3"
+                        type="video/mp4">
+                </video>
+
+            </div>
+            <div class="course-box">
+                <div class="course-title">
+                    <h5><strong>{{ lesson.title }}</strong></h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+
+
+</div>
+
+
+
+{% include "course/_partials/btn-back.html" %}
+{% include "course/_partials/admin_or_logout.html" %}
+
+{% endblock %}

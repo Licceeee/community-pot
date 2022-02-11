@@ -1,0 +1,13 @@
+{% load static %}
+
+<div class="button-box back-btn ">
+    <a href="{% url 'category-list' %}" class="btn btn-secondary mb-1">home</a>
+    <button id="go-back" class="btn btn-outline-secondary">back</button>
+</div>
+
+
+<script>
+    document.getElementById('go-back').addEventListener('click', () => {
+        history.back();
+    });
+</script>
