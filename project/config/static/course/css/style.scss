@@ -6,11 +6,11 @@ $font-color: #5b5b5b;
 $primary: #94c2c6;
 $primary-hover: #56797c;
 
-$secondary: #D18B74;
-$secondary-hover: #BA5E40;
+$secondary: #d18b74;
+$secondary-hover: #ba5e40;
 
 $border: #295563;
-$accent: #EFB291;
+$accent: #300399;
 
 html {
   margin: 0;
@@ -34,7 +34,6 @@ body {
 .video-player {
   height: 70vh;
 }
-
 
 .btn-primary {
   border-color: $primary;
@@ -72,19 +71,15 @@ body {
   color: $white;
 }
 
-
-
-
-
 .btn-danger {
-  border-color: #EDBD77;
-  background-color: #EDBD77;
+  border-color: #edbd77;
+  background-color: #edbd77;
   color: $white;
 }
 
 .btn-danger:hover {
-  border-color: #F6B12C;
-  background-color: #F6B12C;
+  border-color: #f6b12c;
+  background-color: #f6b12c;
   color: $white;
 }
 
@@ -94,7 +89,6 @@ body {
   background-color: $white;
   color: $font-color;
   position: relative;
-
 }
 
 .course-img {
@@ -139,7 +133,6 @@ p {
   text-decoration: none;
 }
 
-
 .hr-with-text {
   width: 100%;
   text-align: center;
@@ -174,18 +167,17 @@ p {
   height: 150px;
   width: 100%;
   object-fit: cover;
-//   display: block;
-//   margin-left: auto;
-//   margin-right: auto;
+  //   display: block;
+  //   margin-left: auto;
+  //   margin-right: auto;
 }
 .course-intro-image-placeholder {
-    height: 150px;
-    object-fit: cover;
+  height: 150px;
+  object-fit: cover;
   //   display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .small-p {
   font-size: 14px;
@@ -228,6 +220,19 @@ p {
   align-content: space-around;
 }
 
+$color-ribbon: $primary;
+$ribbon--width: 140px;
+$ribbon--height: 20px;
+$card-radius: 10px;
+
+.ribbon {
+  position: relative;
+  display: inline-block; 
+  z-index: 2;
+  height: 30px;
+}
+
+
 .lesson-box {
   border: $border 3px solid;
   border-radius: 5px;
@@ -235,7 +240,50 @@ p {
   color: $font-color;
   /* $font-color */
   position: relative;
+
+  .ribbon {
+    position: absolute;
+    right:0;
+    transform-origin: 0px 0px;
+    transform: translate(51%, -46.5px) rotate(45deg); //should be - $ribbon-height + $ribbon-bends, dont' know why that 1px issue :/
+  }
 }
+
+.ribbon__bends {
+  color: darken($color-ribbon,15%);
+}
+
+.ribbon__body {
+  color: $color-ribbon;
+}
+
+.ribbon__text {
+  position: absolute;
+  top:5px;
+  left:0;
+  right:0;
+  bottom:0;
+  text-align: center;
+  text-transform: uppercase;
+  font-size:11px;
+  line-height: 1;
+  font-weight: bold;
+  color: $white;
+}
+
+// .day {
+//   background-color: $accent;
+//   position: absolute;
+//   right: 10px;
+//   top: 10px;
+//   z-index: 1;
+//   color: $white;
+//   padding: 5px;
+//   border-radius: 5px;
+// }
+
+
+
 
 .pdf-img {
   height: 100px;
@@ -246,16 +294,9 @@ p {
   }
 }
 
-
 .pdf-img:hover {
   transform: scale(1.15);
-  }
-
-
-
-
-
-
+}
 
 
 
@@ -265,35 +306,25 @@ p {
   font-weight: 300;
 }
 
-.day {
-  background-color: $secondary;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1;
-  color: $white;
-  padding: 5px;
-  border-radius: 5px;
-}
+
 
 .category-badge {
   background-color: $border;
   position: absolute;
   right: 10px;
   top: 10px;
-  z-index: 1;
+  z-index: 2;
   color: $white;
   padding: 5px;
   border-radius: 5px;
 }
-
 
 .docs-box {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-//   align-items: stretch;
+  //   align-items: stretch;
   align-content: flex-start;
 }
 
@@ -314,7 +345,6 @@ p {
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
-
 }
 
 .doc-title:hover {
@@ -331,10 +361,9 @@ p {
   margin-top: 2px;
 }
 
-
 .course-material-title {
   width: 100%;
-//   text-align: left;
+  //   text-align: left;
   text-transform: uppercase;
 }
 
@@ -356,13 +385,13 @@ p {
 
 .button-box {
   display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: stretch;
-	align-content: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: stretch;
+  align-content: center;
+  z-index: 1;
 }
-
 
 // RESPONSIVE
 @media only screen and (max-width: 394px) {

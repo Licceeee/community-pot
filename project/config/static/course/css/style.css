@@ -34,38 +34,38 @@ body {
 }
 
 .btn-secondary {
-  border-color: #D18B74;
-  background-color: #D18B74;
+  border-color: #d18b74;
+  background-color: #d18b74;
   color: #fff;
 }
 
 .btn-secondary:hover {
-  border-color: #BA5E40;
-  background-color: #BA5E40;
+  border-color: #ba5e40;
+  background-color: #ba5e40;
   color: #fff;
 }
 
 .btn-outline-secondary {
-  border-color: #D18B74;
+  border-color: #d18b74;
   background-color: #f4efea;
-  color: #D18B74;
+  color: #d18b74;
 }
 
 .btn-outline-secondary:hover {
-  border-color: #BA5E40;
-  background-color: #BA5E40;
+  border-color: #ba5e40;
+  background-color: #ba5e40;
   color: #fff;
 }
 
 .btn-danger {
-  border-color: #EDBD77;
-  background-color: #EDBD77;
+  border-color: #edbd77;
+  background-color: #edbd77;
   color: #fff;
 }
 
 .btn-danger:hover {
-  border-color: #F6B12C;
-  background-color: #F6B12C;
+  border-color: #f6b12c;
+  background-color: #f6b12c;
   color: #fff;
 }
 
@@ -240,6 +240,13 @@ p {
       align-content: space-around;
 }
 
+.ribbon {
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+  height: 30px;
+}
+
 .lesson-box {
   border: #295563 3px solid;
   border-radius: 5px;
@@ -247,6 +254,37 @@ p {
   color: #5b5b5b;
   /* $font-color */
   position: relative;
+}
+
+.lesson-box .ribbon {
+  position: absolute;
+  right: 0;
+  -webkit-transform-origin: 0px 0px;
+          transform-origin: 0px 0px;
+  -webkit-transform: translate(51%, -46.5px) rotate(45deg);
+          transform: translate(51%, -46.5px) rotate(45deg);
+}
+
+.ribbon__bends {
+  color: #62a6ab;
+}
+
+.ribbon__body {
+  color: #94c2c6;
+}
+
+.ribbon__text {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: bold;
+  color: #fff;
 }
 
 .pdf-img {
@@ -268,23 +306,12 @@ p {
   font-weight: 300;
 }
 
-.day {
-  background-color: #D18B74;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1;
-  color: #fff;
-  padding: 5px;
-  border-radius: 5px;
-}
-
 .category-badge {
   background-color: #295563;
   position: absolute;
   right: 10px;
   top: 10px;
-  z-index: 1;
+  z-index: 2;
   color: #fff;
   padding: 5px;
   border-radius: 5px;
@@ -345,8 +372,8 @@ p {
 .mini {
   font-size: 12px;
   width: 100%;
-  color: #BA5E40;
-  border: 1px #BA5E40 solid;
+  color: #ba5e40;
+  border: 1px #ba5e40 solid;
   border-radius: 4px;
   margin-top: 2px;
 }
@@ -389,6 +416,7 @@ p {
           align-items: stretch;
   -ms-flex-line-pack: center;
       align-content: center;
+  z-index: 1;
 }
 
 @media only screen and (max-width: 394px) {
