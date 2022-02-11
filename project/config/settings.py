@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'core.apps.CoreConfig',
     'course.apps.CourseConfig',
-    'last_active.apps.LastActiveConfig',
     # 3rd party
     'adminsortable2',
 ]
@@ -59,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'last_active.middleware.LastActiveMiddleware',
+    'user.middleware.LastActiveMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -147,6 +146,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+LAST_SEEN_INTERVAL = 60 * 5
 
 STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = '/static/'

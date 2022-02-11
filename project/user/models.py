@@ -5,6 +5,10 @@ from django.utils.translation import ugettext_lazy as _
 from core.models import Timestamps  # noqa
 from uuid import uuid4
 from core.libs.core_libs import (get_image_format)
+from django.utils import timezone
+from django.core.cache import cache
+import time
+from django.conf import settings
 
 
 def img_dir_path(instance, filename):
@@ -70,3 +74,87 @@ class CustomUser(AbstractUser):
     def get_groups(self):
         return [group.name for group in self.groups.all()]
     get_groups.short_description = _("Groups")
+
+
+class LastActiveManager(models.Manager):
+    """
+    Manager for LastActive objects
+    Provides 2 utility methods
+    """
+
+    def seen(self, user, force=False):
+        """
+        Mask an user last on database seen 
+        The last seen object is only updates is LAST_SEEN_INTERVAL seconds
+        passed from last update or force=True
+        """
+        args = {"user": user}
+        seen, created = self.get_or_create(**args)
+        if created:
+            return seen
+
+        # if we get the object, see if we need to update
+        limit = timezone.now() - datetime.timedelta(seconds=settings.LAST_SEEN_INTERVAL)
+        if seen.last_active < limit or force:
+            seen.last_active = timezone.now()
+            seen.save()
+
+        return seen
+
+    def when(self, user):
+        args = {"user": user}
+        return self.filter(**args).latest("last_active").last_active
+
+
+class LastActive(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    last_active = models.DateTimeField(default=timezone.now)
+
+    objects = LastActiveManager()
+
+    class Meta:
+        ordering = ("-last_active",)
+
+    def __unicode__(self):
+        return f"{self.user} on {self.last_active}"
+
+
+def get_cache_key(user):
+    """
+    Get cache database to cache last database write timestamp
+    """
+    return f"last_active:{user.pk}"
+
+
+def user_seen(user):
+    """
+    Mask an user last seen on database if LAST_SEEN_INTERVAL seconds
+    have passed from last database write.
+    """
+    cache_key = get_cache_key(user)
+    # compute limit to update db
+    limit = time.time() - settings.LAST_SEEN_INTERVAL
+    seen = cache.get(cache_key)
+    if not seen or seen < limit:
+        # mark the database and the cache, if interval is cleared force
+        # database write
+        if seen == -1:
+            LastActive.objects.seen(user, force=True)
+        else:
+            LastActive.objects.seen(user)
+        timeout = settings.LAST_SEEN_INTERVAL
+        cache.set(cache_key, time.time(), timeout)
+
+
+def clear_interval(user):
+    """
+    Clear cached interval from last database write timestamp
+    Usefuf if you want to force a database write for an user
+    """
+    keys = {}
+    for last_active in LastActive.objects.filter(user=user):
+        cache_key = get_cache_key(user)
+        keys[cache_key] = -1
+
+    if keys:
+        cache.set_many(keys)

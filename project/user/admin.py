@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.apps import apps
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, LastActive
 
 
 @admin.register(CustomUser)
@@ -33,3 +33,11 @@ class CustomUserAdmin(UserAdmin):
             }),
         )
     ordering = ('email',)
+
+
+@admin.register(LastActive)
+class LastActiveAdmin(admin.ModelAdmin):
+    list_filter = ("last_active",)
+    search_fields = ("user__username",)
+    list_display = ("user", "last_active")
+    readonly_fields = ['last_active', 'user']
