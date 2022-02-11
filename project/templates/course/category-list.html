@@ -30,7 +30,7 @@
 
 <div class="center-content">
     {% for category in object_list %}
-    <div class="col-12 col-md-6 col-xl-3 p-3">
+    <div class="col-12 col-md-6 col-xl-4 p-4">
         <div class="container  category-box p-3">
             <div class="p-2">
                 {% if category.icon_source %}
@@ -42,7 +42,7 @@
                 {% endif %}
             </div>
 
-            <h3>{{ category.name }}</h3>
+            <h3 class="capitalize p-2">{{ category.name }}</h3>
             <h6 class="mb-3 corsivo">{{ category.count_courses }}
                 {% if category.course_set.all|length == 1 %}
                 course
