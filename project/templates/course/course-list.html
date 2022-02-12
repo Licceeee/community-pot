@@ -19,10 +19,19 @@
 
 
     <div class="col-12 col-md-6 col-xl-3 p-3">
-        <div class="course-box category-box p-3">
+        <div class="course-box lesson-box p-3">
 
             {% if sorted_by_category == None %}
-                <div class="category-badge">{{ course.category.name }}</div>
+            <div class="ribbon">
+                <svg height="30" width="140">
+                    <polygon class="ribbon__bends" points="0 20,10 30,20 20"
+                        style="fill:currentColor;stroke:red;stroke-width:0" />
+                    <polygon class="ribbon__bends" points="120 20,130 30,140 20"
+                        style="fill:currentColor;stroke:red;stroke-width:0" />
+                    <polygon class="ribbon__body" points="120 0,140 20,0 20, 20 0" style="fill:currentColor;" />
+                </svg>
+                <span class="ribbon__text">{{ course.category.name }}</b></span>
+            </div>
             {% endif %}
 
             <div class="mb-3 w-100">
