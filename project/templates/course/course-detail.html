@@ -58,17 +58,18 @@
     <div class="col-12 col-md-6 col-xl-4 p-3">
         <div class="course-box lesson-box p-3">
             {% if lesson.day %}
-            {% comment %} <div class="day">Day {{ lesson.day }}</div> {% endcomment %}
-            
+
             <div class="ribbon">
                 <svg height="30" width="140">
-                  <polygon class="ribbon__bends" points="0 20,10 30,20 20" style="fill:currentColor;stroke:red;stroke-width:0" />
-                  <polygon class="ribbon__bends" points="120 20,130 30,140 20" style="fill:currentColor;stroke:red;stroke-width:0" />
-                  <polygon class="ribbon__body" points="120 0,140 20,0 20, 20 0" style="fill:currentColor;" />
+                    <polygon class="ribbon__bends" points="0 20,10 30,20 20"
+                        style="fill:currentColor;stroke:red;stroke-width:0" />
+                    <polygon class="ribbon__bends" points="120 20,130 30,140 20"
+                        style="fill:currentColor;stroke:red;stroke-width:0" />
+                    <polygon class="ribbon__body" points="120 0,140 20,0 20, 20 0" style="fill:currentColor;" />
                 </svg>
                 <span class="ribbon__text">Day <b class="lesson-day">{{ lesson.day }}</b></span>
-              </div>
-            
+            </div>
+
             {% endif %}
             <div class="mb-3">
 
