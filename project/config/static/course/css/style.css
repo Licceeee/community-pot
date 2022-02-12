@@ -1,4 +1,4 @@
-html {
+:root {
   margin: 0;
   padding: 0;
 }
@@ -134,7 +134,7 @@ p {
   width: 100%;
   text-align: center;
   border-bottom: 0.5px solid #5b5b5b;
-  line-height: 0.1em;
+  line-height: 0.1rem;
   margin: 10px 0 20px;
 }
 
@@ -173,14 +173,14 @@ p {
 }
 
 .course-intro-image {
-  height: 150px;
+  height: 9.325rem;
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
 .course-intro-image-placeholder {
-  height: 150px;
+  height: 9.325rem;
   -o-object-fit: cover;
      object-fit: cover;
   margin-left: auto;
@@ -275,7 +275,7 @@ p {
 
 .ribbon__text {
   position: absolute;
-  top: 4px;
+  top: 0.33em;
   left: 0;
   right: 0;
   bottom: 0;
@@ -288,33 +288,17 @@ p {
 }
 
 .pdf-img {
-  height: 100px;
+  height: 6.25rem;
   width: auto;
 }
 
-.pdf-img :hover {
-  background-color: #295563;
-  height: 200px;
-}
-
 .pdf-img:hover {
-  -webkit-transform: scale(1.15);
-          transform: scale(1.15);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .nr-lessons {
   font-weight: 300;
-}
-
-.category-badge {
-  background-color: #295563;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1;
-  color: #fff;
-  padding: 5px;
-  border-radius: 5px;
 }
 
 .docs-box {
@@ -375,7 +359,7 @@ p {
   color: #ba5e40;
   border: 1px #ba5e40 solid;
   border-radius: 4px;
-  margin-top: 2px;
+  margin-top: 0.16em;
 }
 
 .course-material-title {

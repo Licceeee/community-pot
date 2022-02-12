@@ -12,7 +12,7 @@ $secondary-hover: #ba5e40;
 $border: #295563;
 $accent: #300399;
 
-html {
+:root {
   margin: 0;
   padding: 0;
 }
@@ -137,7 +137,7 @@ p {
   width: 100%;
   text-align: center;
   border-bottom: 0.5px solid $font-color;
-  line-height: 0.1em;
+  line-height: 0.1rem;
   margin: 10px 0 20px;
   span {
     background: $background-color;
@@ -164,7 +164,7 @@ p {
 }
 
 .course-intro-image {
-  height: 150px;
+  height: 9.325rem;
   width: 100%;
   object-fit: cover;
   //   display: block;
@@ -172,7 +172,7 @@ p {
   //   margin-right: auto;
 }
 .course-intro-image-placeholder {
-  height: 150px;
+  height: 9.325rem;
   object-fit: cover;
   //   display: block;
   margin-left: auto;
@@ -250,7 +250,7 @@ $card-radius: 10px;
 }
 
 .ribbon__bends {
-  color: darken($color-ribbon,15%);
+  color: darken($color-ribbon, 15%);
 }
 
 .ribbon__body {
@@ -259,43 +259,26 @@ $card-radius: 10px;
 
 .ribbon__text {
   position: absolute;
-  top:4px;
+  top: 0.33em;
   left:0;
   right:0;
   bottom:0;
   text-align: center;
   text-transform: uppercase;
-  font-size:13px;
+  font-size: 13px;
   line-height: 1;
   font-weight: bold;
   color: $white;
 }
 
-// .day {
-//   background-color: $accent;
-//   position: absolute;
-//   right: 10px;
-//   top: 10px;
-//   z-index: 1;
-//   color: $white;
-//   padding: 5px;
-//   border-radius: 5px;
-// }
-
-
 
 
 .pdf-img {
-  height: 100px;
+  height: 6.25rem;
   width: auto;
-  :hover {
-    background-color: #295563;
-    height: 200px;
+  &:hover {
+    transform: scale(1.10);
   }
-}
-
-.pdf-img:hover {
-  transform: scale(1.15);
 }
 
 
@@ -307,17 +290,6 @@ $card-radius: 10px;
 }
 
 
-
-.category-badge {
-  background-color: $border;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1;
-  color: $white;
-  padding: 5px;
-  border-radius: 5px;
-}
 
 .docs-box {
   display: flex;
@@ -358,7 +330,7 @@ $card-radius: 10px;
   color: $secondary-hover;
   border: 1px $secondary-hover solid;
   border-radius: 4px;
-  margin-top: 2px;
+  margin-top: 0.16em;
 }
 
 .course-material-title {
