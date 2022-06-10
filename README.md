@@ -38,7 +38,7 @@ start
 ```python3 manage.py runserver```
 
 hit 
-localhost:port/admin to enter the admin panel with credentials created 
+localhost:<port>/<admin> to enter the admin panel with credentials created 
 with createsuperuser
 
 e.g with standard port
@@ -48,6 +48,6 @@ e.g with standard port
 
 production settings
 
-rename project/project/production_settings.example.py to production_settings.py
+rename project/project/local_settings.sample.py  to local_settings.py
 
 replace placeholders with your credentials
