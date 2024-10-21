@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     # Custom apps
     "user.apps.UserConfig",
     "core.apps.CoreConfig",
-    "video_course.apps.VideoCourseConfig",
     "course.apps.CourseConfig",
+    "learncraft.apps.LearnCraftConfig",
 ]
 
 MIDDLEWARE = [

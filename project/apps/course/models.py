@@ -1,133 +1,122 @@
-"""
-Module: course models
-
-This module contains the models for the course app.
-"""
-
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from core.models import Timestamps
+from core.libs.core_libs import get_headshot_image, get_image_format  # noqa
+from uuid import uuid4
 
-from django_ckeditor_5.fields import CKEditor5Field
+
+def img_upload_path(instance, filename):
+    ext = filename.split(".")[-1]
+    if instance.pk:
+        filename = f"{instance.pk}.{ext}"
+    else:
+        # set filename as random string
+        filename = f"{uuid4().hex}.{ext}"
+    return f"courses/intro_images/{filename}"
 
 
-class Course(models.Model):
-    """Model for a course."""
+class Category(Timestamps):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(null=True)
+    icon_source = models.CharField(max_length=500, null=True, blank=True)
+    online = models.BooleanField(default=False)
 
-    title = models.CharField(
-        max_length=255,
-        verbose_name=_("Title"),
-        help_text=_("Title of the course."),
-    )
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name=_("Description"),
-        help_text=_("Description of the course."),
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("Created at"),
-        help_text=_("Date and time when the course was created."),
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("Updated at"),
-        help_text=_("Date and time when the course was last updated."),
-    )
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
     def __str__(self):
-        """Returns the string representation of the course."""
-        return self.title
+        return f"{self.name}"
+
+    def count_courses(self):
+        return self.course_set.count()
+
+    count_courses.short_description = "# Courses"
 
 
-class Chapter(models.Model):
-    """Model for a chapter."""
+class Teacher(Timestamps):
+    name = models.CharField(max_length=100, unique=True)
 
+    class Meta:
+        verbose_name = "Teacher"
+        verbose_name_plural = "Teachers"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Course(Timestamps):
+    category = models.ForeignKey(
+        Category, default=None, null=True, on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=100, unique=True)
+    description = models.TextField(null=True, blank=True)
+    teacher = models.ForeignKey(
+        Teacher, default=None, null=True, on_delete=models.CASCADE
+    )
+    folder_name = models.CharField(max_length=100, unique=True, null=True)
+    image = models.ImageField(upload_to=img_upload_path, null=True, blank=True)
+
+    class Meta(object):
+        verbose_name = "Course"
+        verbose_name_plural = "Courses"
+
+    def __str__(self):
+        return f"{self.title}"
+
+    def count_videos(self):
+        return self.lesson_set.count()
+
+    count_videos.short_description = "# Videos"
+
+    def headshot_image(self):
+        return get_headshot_image(self.image, 300)
+
+    headshot_image.short_description = "Preview"
+
+    def get_image(self):
+        if self.image:
+            return get_image_format(self.image, 100)
+        else:
+            return "No Image"
+
+    get_image.short_description = "Image"
+
+
+class Lesson(Timestamps):
+    title = models.CharField(max_length=100)
     course = models.ForeignKey(
-        Course,
-        related_name="chapters",
-        on_delete=models.CASCADE,
-        verbose_name=_("Course"),
-        help_text=_("Course to which the chapter belongs."),
+        Course, default=None, null=True, on_delete=models.CASCADE
     )
-    title = models.CharField(
-        max_length=255,
-        verbose_name=_("Title"),
-        help_text=_("Title of the chapter."),
+    day = models.IntegerField(null=True, blank=True)
+    sortable_inline_order = models.PositiveIntegerField(
+        default=0, blank=False, null=False
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("Created at"),
-        help_text=_("Date and time when the chapter was created."),
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("Updated at"),
-        help_text=_("Date and time when the chapter was last updated."),
-    )
-    chapter_nr = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name=_("Chapter number"),
-        help_text=_("Number of the chapter."),
-    )
+    url = models.CharField(max_length=500, null=True, blank=True)
 
-    class Meta:
-        """Meta options for the course model."""
-
-        # Ensure chapter numbers are unique within a course
-        unique_together = (
-            "course",
-            "chapter_nr",
-        )
+    class Meta(object):
+        verbose_name = "Lesson"
+        verbose_name_plural = "Lesson"
+        ordering = ["sortable_inline_order"]
 
     def __str__(self):
-        """Returns the string representation of the chapter."""
-        return f"{self.title} - {self.course.title}"
+        return f"{self.title}"
 
 
-class Section(models.Model):
-    """Model for a section."""
+class CourseDoc(Timestamps):
+    title = models.CharField(max_length=100)
+    course = models.ForeignKey(
+        Course, default=None, null=True, on_delete=models.CASCADE
+    )
+    sortable_inline_order = models.PositiveIntegerField(
+        default=0, blank=False, null=False
+    )
+    day = models.IntegerField(null=True, blank=True)
+    file = models.FileField(default=None, upload_to="uploads/", null=True, blank=True)
 
-    chapter = models.ForeignKey(
-        Chapter,
-        related_name="sections",
-        on_delete=models.CASCADE,
-        verbose_name=_("Chapter"),
-        help_text=_("Chapter to which the section belongs."),
-    )
-    title = models.CharField(
-        max_length=255,
-        verbose_name=_("Title"),
-        help_text=_("Title of the section."),
-    )
-    section_nr = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name=_("Section number"),
-        help_text=_("Number of the section."),
-    )
-    content = CKEditor5Field("Content", config_name="extends")
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("Created at"),
-        help_text=_("Date and time when the section was created."),
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("Updated at"),
-        help_text=_("Date and time when the section was last updated."),
-    )
-
-    class Meta:
-        """Meta options for the section model."""
-
-        # Ensure section numbers are unique within a chapter
-        unique_together = (
-            "chapter",
-            "section_nr",
-        )
+    class Meta(object):
+        verbose_name = "Course Doc"
+        verbose_name_plural = "Course Docs"
+        ordering = ["sortable_inline_order"]
 
     def __str__(self):
-        """Returns the string representation of the section."""
-        return f"{self.title} - {self.chapter.title}"
+        return f"{self.title}"

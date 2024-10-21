@@ -13,8 +13,8 @@ handler500 = "core.views.server_error"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("video_course.urls")),
     path("", include("course.urls")),
+    path("", include("learncraft.urls")),
 ]
 
 if settings.DEBUG:

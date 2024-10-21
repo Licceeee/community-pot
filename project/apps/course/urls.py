@@ -1,11 +1,19 @@
-"""
-Module: course urls
+from django.urls import path
+from .views import CategoryListView, CourseListView, CourseDetailView
+from django.contrib.auth.decorators import login_required
 
-This module defines the URL patterns for the course app.
-"""
-
-from django.urls import path, include
 
 urlpatterns = [
-    path("ckeditor/", include("django_ckeditor_5.urls")),
+    path("", login_required(CategoryListView.as_view()), name="category-list"),
+    path(
+        "<int:category_id>/courses",
+        login_required(CourseListView.as_view()),
+        name="course-list",
+    ),
+    path("courses/", login_required(CourseListView.as_view()), name="course-list"),
+    path(
+        "courses/<int:pk>",
+        login_required(CourseDetailView.as_view()),
+        name="course-detail",
+    ),
 ]
