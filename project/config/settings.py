@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Third-party apps
+    "django_ckeditor_5",  # CKEditor 5 for Django
     "dal",
     "dal_select2",
     "admin_auto_filters",
@@ -171,7 +172,9 @@ SITE_ID = 1
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-KEDITOR_5_CONFIGS = {
+CKEDITOR_UPLOAD_PATH = "/media/uploads/"
+
+CKEDITOR_5_CONFIGS = {
     "default": {
         "toolbar": "full",
         "height": 300,
