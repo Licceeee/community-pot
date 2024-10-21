@@ -1,0 +1,142 @@
+#head {
+  margin-top: 1rem;
+  color: #fff;
+}
+
+#header {
+  min-height: auto;
+  background: #343A40;
+  color: rgb(235, 147, 147);
+  width: auto;
+  height: auto;
+}
+
+#branding h1 {
+  color: #fff;
+}
+
+a:link,
+a:visited {
+  color: #1d4877;
+}
+
+div.breadcrumbs {
+  background: #40a9bf;
+  color: #fff;
+}
+
+div.breadcrumbs a {
+  color: #C7E4DF;
+}
+
+a.breadcrumb {
+  color: #000;
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+  background: #d8edf2;
+  color: #343A40;
+}
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+  background: #343A40;
+  color: #fff;
+}
+
+a.section:link,
+a.section:visited {
+  color: #162845;
+  text-decoration: none;
+}
+
+#nav-sidebar .current-app .section:link,
+#nav-sidebar .current-app .section:visited {
+  color: #162845;
+  font-weight: bold;
+}
+
+#nav-sidebar .current-model {
+  background: #e6ecec;
+}
+
+.dropdown {
+  padding-left: 1rem;
+  float: right;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 12px;
+  border: none;
+  font-weight: 300;
+  outline: none;
+  color: #fff;
+  background-color: inherit;
+  font-family: inherit;
+  border-radius: 3px;
+  padding-right: 2rem;
+  text-transform: uppercase;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  color: #343A40;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: #343A40 !important;
+  font-weight: bold;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.center-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+.navbar-link {
+  padding: 1rem 1.5rem;
+}
+
+.px-10 {
+  padding: 0 1.5rem;
+}
+
+.no-border-bottom {
+  border-bottom: #343A40 !important;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.language {
+  padding-left: 5px;
+}/*# sourceMappingURL=admin.css.map */
