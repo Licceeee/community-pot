@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
+import sys
+import secrets
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'secret key placeholder'
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    secrets.token_urlsafe(50),  # Random key ONLY for development
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -119,6 +125,7 @@ AUTH_USER_MODEL = 'user.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
+
 def gettext(s):
     return s
 
@@ -163,6 +170,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 try:
-    from .local_settings import *   # noqa
+    from .local_settings import *  # noqa
 except ImportError:
     pass
+
+
+# appends apps to BASE_DIR path: ! should stay at the bottom of the file !
+sys.path.append(os.path.join(BASE_DIR, "apps"))
