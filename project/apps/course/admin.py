@@ -1,60 +1,57 @@
 from django.contrib import admin
-from adminsortable2.admin import SortableInlineAdminMixin
-from .models import (Category, Course, Teacher, Lesson, CourseDoc)
+
+from course.models import Course, Chapter, Section
 
 
-# ================================================================== >> INLINES
-class LessonInlineAdmin(SortableInlineAdminMixin, admin.StackedInline):
-    model = Lesson
+class SectionInline(admin.StackedInline):
+    """Inline class for the Section model."""
+
+    model = Section
     extra = 1
 
 
-class CourseDocInlineAdmin(SortableInlineAdminMixin, admin.StackedInline):
-    model = CourseDoc
+class ChapterInline(admin.StackedInline):
+    """Inline class for the Chapter model."""
+
+    model = Chapter
     extra = 1
 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    inlines = [LessonInlineAdmin, CourseDocInlineAdmin]
-    search_fields = ['title', 'teacher']
-    list_display = ('title', 'teacher', 'category', 'count_videos',
-                    'get_image')
-    list_filter = ('title', 'teacher')
-    autocomplete_fields = ['teacher', 'category']
-    readonly_fields = ('created', 'updated', 'headshot_image')
+    """Admin class for the Course model."""
+
+    inlines = [ChapterInline]
+    list_display = ("title", "created_at")
+    search_fields = ("title",)
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = ('name', 'description', 'online', 'count_courses', 
-                    'created', 'updated')
-    list_editable = ('online',)
-    readonly_fields = ('created', 'updated')
+@admin.register(Chapter)
+class ChapterAdmin(admin.ModelAdmin):
+    """Admin class for the Chapter model."""
+
+    inlines = [SectionInline]
+    list_display = (
+        "title",
+        "chapter_nr",
+        "course",
+        "created_at",
+        "updated_at",
+    )
+    search_fields = ("title", "course__title")
+    autocomplete_fields = ("course",)
 
 
-@admin.register(Teacher)
-class TeacherAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = ('name', 'created', 'updated')
-    list_filter = ('name',)
-    readonly_fields = ('created', 'updated')
+@admin.register(Section)
+class SectionAdmin(admin.ModelAdmin):
+    """Admin class for the Section model."""
 
-
-@admin.register(Lesson)
-class LessonAdmin(admin.ModelAdmin):
-    search_fields = ['title']
-    list_display = ('title', 'course', 'day', 'created', 'updated')
-    list_filter = ('course',)
-    autocomplete_fields = ['course']
-    readonly_fields = ('created', 'updated')
-
-
-@admin.register(CourseDoc)
-class CourseDocAdmin(admin.ModelAdmin):
-    search_fields = ['title']
-    list_display = ('title', 'course', 'created', 'updated')
-    list_filter = ('course',)
-    autocomplete_fields = ['course']
-    readonly_fields = ('created', 'updated')
+    list_display = (
+        "title",
+        "section_nr",
+        "chapter",
+        "created_at",
+        "updated_at",
+    )
+    search_fields = ("title", "chapter__title")
+    autocomplete_fields = ("chapter",)
