@@ -56,13 +56,19 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(
-        verbose_name="email address", max_length=255, unique=True
+        verbose_name="email address",
+        max_length=255,
+        unique=True,
     )
     first_name = models.CharField(
-        max_length=255, null=True, verbose_name=_("Firstname")
+        max_length=255,
+        null=True,
+        verbose_name=_("Firstname"),
     )
     last_name = models.CharField(
-        max_length=255, null=True, verbose_name=_("Lastname")
+        max_length=255,
+        null=True,
+        verbose_name=_("Lastname"),
     )
     username = None
 
@@ -99,7 +105,7 @@ class LastActiveManager(models.Manager):
 
         # if we get the object, see if we need to update
         limit = timezone.now() - datetime.timedelta(
-            seconds=settings.LAST_SEEN_INTERVAL
+            seconds=settings.LAST_SEEN_INTERVAL,
         )
         if seen.last_active < limit or force:
             seen.last_active = timezone.now()
