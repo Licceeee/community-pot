@@ -175,21 +175,36 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CKEDITOR_UPLOAD_PATH = "/media/uploads/"
 
 CKEDITOR_5_CONFIGS = {
+    "mediaEmbed": {"previewsInData": True},
+    "htmlEmbed": {"showPreviews": True},
+    "todoList": {"checklist": True},
     "default": {
         "toolbar": "full",
         "height": 300,
         "width": "100%",
         "allowedContent": True,  # Allow all HTML content
-        "extraAllowedContent": "iframe[*];",  # Allow <iframe> tags
+        "extraAllowedContent": "iframe[*]; oembed[*];",
+        "mediaEmbed": {"previewsInData": True},
     },
     "extends": {
         "height": 500,
         "width": "100%",
         "allowedContent": True,  # Allow all HTML content
-        "extraAllowedContent": "iframe[*];",  # Allow <iframe> tags
+        "extraAllowedContent": "iframe[*]; oembed[*];",
+        "mediaEmbed": {"previewsInData": True},
+        "extraPlugis": ",".join(
+            [
+                "oembed",
+                "uploadAdapter",
+                "mediaEmbed",
+                "html5video",
+            ]
+        ),
         "toolbar": [
-            "heading",
+            "insertImage",
+            "mediaEmbed",
             "|",
+            "heading",
             "outdent",
             "indent",
             "|",
@@ -203,11 +218,8 @@ CKEDITOR_5_CONFIGS = {
             "|",
             "codeBlock",
             "sourceEditing",
-            "insertImage",
-            "mediaEmbed",
             "|",
             "blockQuote",
-            "imageUpload",
             "|",
             "fontSize",
             "fontFamily",
@@ -279,9 +291,6 @@ CKEDITOR_5_CONFIGS = {
             "start": "true",
         }
     },
-    "mediaEmbed": {"previewsInData": True},
-    "htmlEmbed": {"showPreviews": True},
-    "todoList": {"checklist": True},
 }
 
 
