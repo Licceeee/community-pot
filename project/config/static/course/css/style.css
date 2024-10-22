@@ -1,4 +1,3 @@
-
 :root {
   margin: 0;
   padding: 0;
@@ -127,6 +126,7 @@ p {
   line-height: 0.1rem;
   margin: 10px 0 20px;
 }
+
 .hr-with-text span {
   background: #f4efea;
   padding: 0 10px;
@@ -154,13 +154,13 @@ p {
   height: 9.325rem;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .course-intro-image-placeholder {
   height: 9.325rem;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   margin-left: auto;
   margin-right: auto;
 }
@@ -177,7 +177,8 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* number of lines to show */
+  -webkit-line-clamp: 5;
+  /* number of lines to show */
   line-clamp: 5;
   -webkit-box-orient: vertical;
 }
@@ -221,6 +222,7 @@ p {
   /* $font-color */
   position: relative;
 }
+
 .lesson-box .ribbon {
   position: absolute;
   right: 0;
@@ -254,6 +256,7 @@ p {
   height: 6.25rem;
   width: auto;
 }
+
 .pdf-img:hover {
   transform: scale(1.1);
 }
@@ -338,11 +341,22 @@ p {
   .hr-with-text {
     all: unset;
   }
+
   .hr-with-text span {
     all: unset;
   }
+
   .category-title-description {
     padding-left: 3vw;
     padding-right: 3vw;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+
+img {
+  max-width: 100% !important;
+  /* Make images responsive */
+  height: auto;
+  /* Maintain aspect ratio */
+}
+
+/*# sourceMappingURL=style.css.map */
