@@ -131,3 +131,29 @@ class Section(models.Model):
     def __str__(self):
         """Returns the string representation of the section."""
         return f"{self.title} - {self.chapter.title}"
+
+
+class VideoUpload(models.Model):
+    """Model for video uploads associated with a chapter."""
+
+    chapter = models.ForeignKey(
+        Chapter,
+        related_name="videos",
+        on_delete=models.CASCADE,
+        verbose_name=_("Chapter"),
+        help_text=_("Chapter to which the video belongs."),
+    )
+    video = models.FileField(
+        upload_to="videos/",
+        verbose_name=_("Video"),
+        help_text=_("Uploaded video file."),
+    )
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("Uploaded at"),
+        help_text=_("Date and time when the video was uploaded."),
+    )
+
+    def __str__(self):
+        """Returns the string representation of the video upload."""
+        return f"Video for {self.chapter.title}"

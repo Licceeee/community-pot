@@ -1,20 +1,33 @@
+"""
+Module: learncraft admin
+
+This module contains the admin classes for the learncraft app.
+"""
+
 from django.contrib import admin
 
-from .models import Course, Chapter, Section
+from .models import Course, Chapter, Section, VideoUpload
+
+
+class VideoUploadInline(admin.StackedInline):
+    """Inline class for the VideoUpload model."""
+
+    model = VideoUpload
+    extra = 0
 
 
 class SectionInline(admin.StackedInline):
     """Inline class for the Section model."""
 
     model = Section
-    extra = 1
+    extra = 0
 
 
 class ChapterInline(admin.StackedInline):
     """Inline class for the Chapter model."""
 
     model = Chapter
-    extra = 1
+    extra = 0
 
 
 @admin.register(Course)
@@ -30,7 +43,7 @@ class CourseAdmin(admin.ModelAdmin):
 class ChapterAdmin(admin.ModelAdmin):
     """Admin class for the Chapter model."""
 
-    inlines = [SectionInline]
+    inlines = [VideoUploadInline, SectionInline]
     list_display = (
         "title",
         "chapter_nr",
