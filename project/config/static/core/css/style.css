@@ -5,27 +5,24 @@ html {
 
 body {
   background-color: #f7f7f7;
-  color: #bd4545;
+  color: rgb(189, 69, 69);
 }
-
 body .main {
   padding: 2% 0;
   text-align: center;
 }
-
 body .custom-input {
   width: 50%;
 }
 
 a {
-  color: #747474;
+  color: rgb(116, 116, 116);
 }
 
 a:hover {
-  color: #295563;
+  color: rgb(41, 85, 99);
 }
 
 .video-player {
   height: 70vh;
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

@@ -1,25 +1,24 @@
+from uuid import uuid4
+import time
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
-from django.utils.translation import ugettext_lazy as _
-from core.models import Timestamps  # noqa
-from uuid import uuid4
-from core.libs.core_libs import (get_image_format)
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.core.cache import cache
-import time
-import datetime
 from django.conf import settings
 
 
 def img_dir_path(instance, filename):
-    ext = filename.split('.')[-1]
+    ext = filename.split(".")[-1]
     if instance.pk:
-        filename = f'{instance.pk}.{ext}'
+        filename = f"{instance.pk}.{ext}"
     else:
         # set filename as random string
-        filename = f'{uuid4().hex}.{ext}'
-    return (f'user/{filename}')
+        filename = f"{uuid4().hex}.{ext}"
+    return f"user/{filename}"
 
 
 class CustomUserManager(BaseUserManager):
@@ -44,27 +43,36 @@ class CustomUserManager(BaseUserManager):
         """
         Create and save a SuperUser with the given email and password.
         """
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
 
-        if extra_fields.get('is_staff') is not True:
+        if extra_fields.get("is_staff") is not True:
             raise ValueError(_("Superuser must have is_staff=True."))
-        if extra_fields.get('is_superuser') is not True:
+        if extra_fields.get("is_superuser") is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
         return self.create_user(email, password, **extra_fields)
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(verbose_name='email address', max_length=255,
-                              unique=True)
-    first_name = models.CharField(max_length=255, null=True,
-                                  verbose_name=_("Firstname"))
-    last_name = models.CharField(max_length=255, null=True,
-                                 verbose_name=_("Lastname"))
+    email = models.EmailField(
+        verbose_name="email address",
+        max_length=255,
+        unique=True,
+    )
+    first_name = models.CharField(
+        max_length=255,
+        null=True,
+        verbose_name=_("Firstname"),
+    )
+    last_name = models.CharField(
+        max_length=255,
+        null=True,
+        verbose_name=_("Lastname"),
+    )
     username = None
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
@@ -74,6 +82,7 @@ class CustomUser(AbstractUser):
 
     def get_groups(self):
         return [group.name for group in self.groups.all()]
+
     get_groups.short_description = _("Groups")
 
 
@@ -85,7 +94,7 @@ class LastActiveManager(models.Manager):
 
     def seen(self, user, force=False):
         """
-        Mask an user last on database seen 
+        Mask an user last on database seen
         The last seen object is only updates is LAST_SEEN_INTERVAL seconds
         passed from last update or force=True
         """
@@ -95,7 +104,9 @@ class LastActiveManager(models.Manager):
             return seen
 
         # if we get the object, see if we need to update
-        limit = timezone.now() - datetime.timedelta(seconds=settings.LAST_SEEN_INTERVAL)
+        limit = timezone.now() - datetime.timedelta(
+            seconds=settings.LAST_SEEN_INTERVAL,
+        )
         if seen.last_active < limit or force:
             seen.last_active = timezone.now()
             seen.save()

@@ -30,7 +30,8 @@ def get_video_format(video_url, width, height):
             f'  frameborder="0" class="video-frame"'
             f'  allow="accelerometer; autoplay; clipboard-write;'
             f'  encrypted-media; gyroscope; picture-in-picture"'
-            f'  allowfullscreen>'
-            f'</iframe>')
+            f"  allowfullscreen>"
+            f"</iframe>"
+        )
     else:
         return "No Video Found"

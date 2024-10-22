@@ -1,6 +1,7 @@
 
 # rm db.sqlite3
 rm -rf course/migrations/*
+rm -rf course/migrations/*
 rm -rf user/migrations/*
 rm -rf core/migrations/*
 
@@ -13,7 +14,8 @@ python manage.py makemigrations
 python manage.py makemigrations user
 python manage.py makemigrations core
 python manage.py makemigrations course
+python manage.py makemigrations course
 
 python manage.py migrate
-# python manage.py createsuperuser
+python manage.py createsuperuser
 
