@@ -1,6 +1,13 @@
+"""
+Module: course urls
+
+This module defines the URL patterns for the course app.
+"""
+
 from django.urls import path
-from .views import CategoryListView, CourseListView, CourseDetailView
 from django.contrib.auth.decorators import login_required
+
+from .views import CategoryListView, CourseListView, CourseDetailView
 
 
 urlpatterns = [
@@ -10,7 +17,11 @@ urlpatterns = [
         login_required(CourseListView.as_view()),
         name="course-list",
     ),
-    path("courses/", login_required(CourseListView.as_view()), name="course-list"),
+    path(
+        "courses/",
+        login_required(CourseListView.as_view()),
+        name="course-list",
+    ),
     path(
         "courses/<int:pk>",
         login_required(CourseDetailView.as_view()),
