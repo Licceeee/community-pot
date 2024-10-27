@@ -16,6 +16,7 @@ class VideoUploadInline(admin.StackedInline):
     extra = 0
 
 
+
 class SectionInline(admin.StackedInline):
     """Inline class for the Section model."""
 
@@ -53,6 +54,13 @@ class ChapterAdmin(admin.ModelAdmin):
     )
     search_fields = ("title", "course__title")
     autocomplete_fields = ("course",)
+    
+    def save_model(self, request, obj, form, change):
+        """Override save_model to block non-superusers from saving."""
+        if not request.user.is_superuser:
+            return  # Prevent saving the object
+        super().save_model(request, obj, form, change)
+
 
 
 @admin.register(Section)
@@ -68,3 +76,9 @@ class SectionAdmin(admin.ModelAdmin):
     )
     search_fields = ("title", "chapter__title")
     autocomplete_fields = ("chapter",)
+    
+    def save_model(self, request, obj, form, change):
+        """Override save_model to block non-superusers from saving."""
+        if not request.user.is_superuser:
+            return  # Prevent saving the object
+        super().save_model(request, obj, form, change)
