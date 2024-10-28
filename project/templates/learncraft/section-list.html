@@ -9,7 +9,9 @@
   </div>
   {% include "course/_partials/arrow-down.html" %}
   <br />
+
   <hr />
+  {% if object.videos.count > 0 %}
   <div class="mb-2 p-3">
     <h4>Recordings</h4>
     {% for video in object.videos.all %}
@@ -26,15 +28,16 @@
       </div>
     </div>
     {% endfor %}
-
+    <!-- break -->
     <hr />
+    {% endif %}
 
     <div class="center-content">
       {% for section in object.sections.all %}
       <div class="col-12 p-3">
         <div class="container category-box p-3">
           <div class="d-flex align-items-center justify-content-between">
-            <h4>
+            <h4 style="text-align: left">
               {{ section.section_nr }}:
               <strong>{{ section.title }}</strong>
             </h4>

@@ -11,8 +11,9 @@
   <br />
 
   <div class="center-content">
-    {% for chapter in course.chapters.all%}
+    {% for chapter in course.chapters.all %}
 
+    {% if chapter.sections.count > 0 %}
       <div class="col-12 col-md-6  p-4">
         <div class="container category-box p-3">
           {{ chapter.chapter_nr }}: <strong>{{ chapter.title }}</strong>
@@ -26,6 +27,7 @@
           </div>
         </div>
       </div>
+    {% endif %}
     {% endfor %}
       </div>
 
