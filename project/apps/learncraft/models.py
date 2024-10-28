@@ -46,6 +46,11 @@ class Course(models.Model):
         """Returns the string representation of the course."""
         return self.title
 
+    @property
+    def total_sections(self):
+        """Counts all sections across chapters in the course."""
+        return sum(chapter.sections.count() for chapter in self.chapters.all())
+
 
 class Chapter(models.Model):
     """Model for a chapter."""
