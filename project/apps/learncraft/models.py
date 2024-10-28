@@ -107,7 +107,7 @@ class Chapter(models.Model):
                 course=self.course,
                 chapter_nr__gt=self.chapter_nr,
             )
-            .order_by('chapter_nr')
+            .order_by("chapter_nr")
             .first()
         )
 
@@ -124,7 +124,7 @@ class Chapter(models.Model):
                 chapter_nr__lt=self.chapter_nr,
                 course=self.course,
             )
-            .order_by('-chapter_nr')
+            .order_by("-chapter_nr")
             .first()
         )
 

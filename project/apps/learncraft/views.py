@@ -49,7 +49,7 @@ class LearnCraftChapterDetailView(DetailView):
         next_chapter = chapter.get_next_chapter()  # Get the next chapter
         previous_chapter = chapter.get_previous_chapter()
 
-        context['next_chapter'] = next_chapter
-        context['previous_chapter'] = previous_chapter
+        context["next_chapter"] = next_chapter
+        context["previous_chapter"] = previous_chapter
 
         return context
