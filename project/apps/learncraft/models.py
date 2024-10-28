@@ -78,7 +78,6 @@ class Chapter(models.Model):
         help_text=_("Date and time when the chapter was last updated."),
     )
     chapter_nr = models.PositiveIntegerField(
-        default=0,
         blank=False,
         null=False,
         verbose_name=_("Order"),
@@ -150,7 +149,6 @@ class Section(models.Model):
         help_text=_("Title of the section."),
     )
     section_nr = models.PositiveIntegerField(
-        default=0,
         blank=False,
         null=False,
         verbose_name=_("Order"),
