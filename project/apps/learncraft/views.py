@@ -45,5 +45,11 @@ class LearnCraftChapterDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """Returns the context data for the course list view."""
         context = super().get_context_data(**kwargs)
+        chapter = self.object  # Get the current chapter instance
+        next_chapter = chapter.get_next_chapter()  # Get the next chapter
+        previous_chapter = chapter.get_previous_chapter()
+
+        context['next_chapter'] = next_chapter
+        context['previous_chapter'] = previous_chapter
 
         return context

@@ -95,9 +95,36 @@ class Chapter(models.Model):
         return f"{self.title} - {self.course.title}"
 
     def get_next_chapter(self):
+        """
+        Retrieve the next chapter in the sequence for the current course.
+
+        Returns:
+            Chapter or None: The next Chapter object if it exists,
+            otherwise None.
+        """
         return (
-            Chapter.objects.filter(section_nr__gt=self.section_nr)
-            .order_by('section_nr')
+            Chapter.objects.filter(
+                course=self.course,
+                chapter_nr__gt=self.chapter_nr,
+            )
+            .order_by('chapter_nr')
+            .first()
+        )
+
+    def get_previous_chapter(self):
+        """
+        Retrieve the previous chapter in the sequence for the current course.
+
+        Returns:
+            Chapter or None: The previous Chapter object if it exists,
+            otherwise None.
+        """
+        return (
+            Chapter.objects.filter(
+                chapter_nr__lt=self.chapter_nr,
+                course=self.course,
+            )
+            .order_by('-chapter_nr')
             .first()
         )
 

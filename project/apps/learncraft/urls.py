@@ -25,7 +25,7 @@ urlpatterns = [
         name="learncraft-course-details",
     ),
     path(
-        "learncraft-courses/<int:course>/chapters/<int:pk>",
+        "learncraft-courses/chapters/<int:pk>",
         login_required(LearnCraftChapterDetailView.as_view()),
         name="learncraft-chapter-details",
     ),

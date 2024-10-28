@@ -71,16 +71,35 @@
       {% endfor %}
     </div>
 
-    {% if object.next_chapter %}
-    <div class="text-center mt-4">
-      <a
-        href="{% url 'chapter_detail' object.next_chapter.id %}"
-        class="btn btn-primary"
-      >
-        Next Chapter: {{ object.next_chapter.title }}
-      </a>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        justify-content: center;
+      "
+    >
+      {% if previous_chapter %}
+      <div class="mt-4">
+        <a
+          href="{% url 'learncraft-chapter-details' previous_chapter.id %}"
+          class="btn btn-outline-secondary"
+        >
+          Previous Chapter: {{ previous_chapter.title }}
+        </a>
+      </div>
+      {% endif %} {% if next_chapter %}
+      <div class="mt-4">
+        <a
+          href="{% url 'learncraft-chapter-details' next_chapter.id %}"
+          class="btn btn-outline-primary"
+        >
+          Next Chapter: {{ next_chapter.title }}
+        </a>
+      </div>
+      {% endif %}
     </div>
-    {% endif %}
+
     <!-- break -->
     {% include "course/_partials/btn-back.html" %}
     <!-- break -->

@@ -19,7 +19,7 @@
           {{ chapter.chapter_nr }}: <strong>{{ chapter.title }}</strong>
           <div class="p-1">
             <a
-            href="{% url 'learncraft-chapter-details' object.id  chapter.id %}"
+            href="{% url 'learncraft-chapter-details' chapter.id %}"
             class="btn btn-primary btn-lg"
           >
             Start chapter
