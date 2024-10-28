@@ -6,6 +6,8 @@ This module contains the admin classes for the learncraft app.
 
 from django.contrib import admin
 
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
+
 from .models import Course, Chapter, Section, VideoUpload
 
 
@@ -16,23 +18,22 @@ class VideoUploadInline(admin.StackedInline):
     extra = 0
 
 
-
-class SectionInline(admin.StackedInline):
-    """Inline class for the Section model."""
-
-    model = Section
-    extra = 0
-
-
-class ChapterInline(admin.StackedInline):
+class ChapterInline(SortableInlineAdminMixin, admin.StackedInline):
     """Inline class for the Chapter model."""
 
     model = Chapter
     extra = 0
 
 
+class SectionInline(SortableInlineAdminMixin, admin.StackedInline):
+    """Inline class for the Section model."""
+
+    model = Section
+    extra = 0
+
+
 @admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(SortableAdminBase, admin.ModelAdmin):
     """Admin class for the Course model."""
 
     inlines = [ChapterInline]
@@ -41,7 +42,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 @admin.register(Chapter)
-class ChapterAdmin(admin.ModelAdmin):
+class ChapterAdmin(SortableAdminBase, admin.ModelAdmin):
     """Admin class for the Chapter model."""
 
     inlines = [VideoUploadInline, SectionInline]
@@ -54,13 +55,12 @@ class ChapterAdmin(admin.ModelAdmin):
     )
     search_fields = ("title", "course__title")
     autocomplete_fields = ("course",)
-    
+
     def save_model(self, request, obj, form, change):
         """Override save_model to block non-superusers from saving."""
         if not request.user.is_superuser:
             return  # Prevent saving the object
         super().save_model(request, obj, form, change)
-
 
 
 @admin.register(Section)
@@ -76,7 +76,7 @@ class SectionAdmin(admin.ModelAdmin):
     )
     search_fields = ("title", "chapter__title")
     autocomplete_fields = ("chapter",)
-    
+
     def save_model(self, request, obj, form, change):
         """Override save_model to block non-superusers from saving."""
         if not request.user.is_superuser:

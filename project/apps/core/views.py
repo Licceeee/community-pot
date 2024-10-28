@@ -4,7 +4,6 @@ Module: core views
 This module defines the views for the core app.
 """
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
@@ -34,7 +33,7 @@ def entity_too_large(request):
     return render(request, "core/errors/413.html", status=413)
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
+class IndexView(TemplateView):
     """The view for the index page"""
 
     template_name = "core/index.html"

@@ -392,3 +392,47 @@ img {
   height: auto;
   /* Maintain aspect ratio */
 }
+
+
+.arrow-btn {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  border: none !important;
+  outline: none;
+}
+
+/* Additional styles to remove focus outline across browsers */
+.arrow-btn:focus,
+.arrow-btn:active {
+  outline: none;
+  box-shadow: none;
+  /* Removes focus shadow in some browsers */
+  outline-color: transparent;
+  /* Removes outline color */
+}
+
+.arrow {
+  font-size: 4rem;
+  border: none;
+  outline: none;
+  padding-right: 1rem;
+  line-height: 2rem;
+}
+
+.section-content {
+  margin-top: 10px;
+}
+
+.btn-adaptive {
+  display: inline-block;
+  /* Allows the button to adjust to content */
+  white-space: nowrap;
+  /* Prevents text from wrapping */
+  overflow: hidden;
+  /* Ensures any overflow is hidden */
+  text-overflow: ellipsis;
+  /* Adds ellipsis if the text is too long */
+  padding: 0.5rem 1rem;
+  /* Adjust padding as needed */
+}

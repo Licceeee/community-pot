@@ -24,6 +24,13 @@ class Course(models.Model):
         verbose_name=_("Description"),
         help_text=_("Description of the course."),
     )
+    icon_source = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True,
+        verbose_name=_("Icon"),
+        help_text=_("Icon source of the course."),
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("Created at"),
@@ -65,11 +72,12 @@ class Chapter(models.Model):
         verbose_name=_("Updated at"),
         help_text=_("Date and time when the chapter was last updated."),
     )
-    chapter_nr = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name=_("Chapter number"),
-        help_text=_("Number of the chapter."),
+    chapter_nr = models.PositiveIntegerField(
+        default=0,
+        blank=False,
+        null=False,
+        verbose_name=_("Order"),
+        help_text=_("Order of the lesson."),
     )
 
     class Meta:
@@ -80,10 +88,18 @@ class Chapter(models.Model):
             "course",
             "chapter_nr",
         )
+        ordering = ["chapter_nr"]
 
     def __str__(self):
         """Returns the string representation of the chapter."""
         return f"{self.title} - {self.course.title}"
+
+    def get_next_chapter(self):
+        return (
+            Chapter.objects.filter(section_nr__gt=self.section_nr)
+            .order_by('section_nr')
+            .first()
+        )
 
 
 class Section(models.Model):
@@ -101,11 +117,12 @@ class Section(models.Model):
         verbose_name=_("Title"),
         help_text=_("Title of the section."),
     )
-    section_nr = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name=_("Section number"),
-        help_text=_("Number of the section."),
+    section_nr = models.PositiveIntegerField(
+        default=0,
+        blank=False,
+        null=False,
+        verbose_name=_("Order"),
+        help_text=_("Order of the lesson."),
     )
     content = CKEditor5Field("Content", config_name="extends")
     created_at = models.DateTimeField(
@@ -127,6 +144,7 @@ class Section(models.Model):
             "chapter",
             "section_nr",
         )
+        ordering = ["section_nr"]
 
     def __str__(self):
         """Returns the string representation of the section."""
@@ -142,6 +160,11 @@ class VideoUpload(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("Chapter"),
         help_text=_("Chapter to which the video belongs."),
+    )
+    title = models.CharField(
+        max_length=255,
+        verbose_name=_("Title"),
+        help_text=_("Title of the video."),
     )
     video = models.FileField(
         upload_to="videos/",

@@ -1,0 +1,105 @@
+{% extends 'course/base.html' %} {% load static %} {% block content %}
+<div>
+  <div class="pb-3 pt-2">
+    <h5>Hi <strong>{{ user.email }}</strong>!</h5>
+  </div>
+
+  <div class="mb-2 p-3">
+    <h2>{{ object.title }}</h2>
+  </div>
+  {% include "course/_partials/arrow-down.html" %}
+  <br />
+  <hr />
+  <div class="mb-2 p-3">
+    <h4>Recordings</h4>
+    {% for video in object.videos.all %}
+    <div class="btn-adaptive p-3">
+      <div class="container category-box p-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <a
+            href="{{ video.video.url }}"
+            target="_blank"
+            class="btn btn-primary"
+            >Watch {{ video.title }}</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <hr />
+
+    <div class="center-content">
+      {% for section in object.sections.all %}
+      <div class="col-12 p-3">
+        <div class="container category-box p-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <h4>
+              {{ section.section_nr }}:
+              <strong>{{ section.title }}</strong>
+            </h4>
+
+            <button
+              class="arrow-btn"
+              onclick="toggleSection('{{ section.id }}')"
+            >
+              <span id="arrow-down-{{ section.id }}" class="arrow"
+                >&#9662;</span
+              >
+              <!-- Down Arrow -->
+              <span
+                id="arrow-up-{{ section.id }}"
+                class="arrow"
+                style="display: none"
+                >&#9652;</span
+              >
+              <!-- Up Arrow -->
+            </button>
+          </div>
+          <div
+            id="content-{{ section.id }}"
+            class="section-content"
+            style="display: none"
+          >
+            <div style="text-align: left">{{ section.content|safe }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if object.next_chapter %}
+    <div class="text-center mt-4">
+      <a
+        href="{% url 'chapter_detail' object.next_chapter.id %}"
+        class="btn btn-primary"
+      >
+        Next Chapter: {{ object.next_chapter.title }}
+      </a>
+    </div>
+    {% endif %}
+    <!-- break -->
+    {% include "course/_partials/btn-back.html" %}
+    <!-- break -->
+    {% include "course/_partials/admin_or_logout.html" %}
+
+    <script>
+      function toggleSection(sectionId) {
+        const content = document.getElementById(`content-${sectionId}`);
+        const arrowDown = document.getElementById(`arrow-down-${sectionId}`);
+        const arrowUp = document.getElementById(`arrow-up-${sectionId}`);
+
+        if (content.style.display === "none") {
+          content.style.display = "block";
+          arrowDown.style.display = "none";
+          arrowUp.style.display = "inline"; // Show up arrow
+        } else {
+          content.style.display = "none";
+          arrowDown.style.display = "inline"; // Show down arrow
+          arrowUp.style.display = "none";
+        }
+      }
+    </script>
+    {% endblock %}
+  </div>
+</div>
