@@ -4,12 +4,13 @@ Module: course views
 This module defines the views for the course app.
 """
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, TemplateView
 
 from course.models import Category, Course
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     """List view for the Category model"""
 
     template_name = "course/category-list.html"
@@ -22,7 +23,7 @@ class CategoryListView(ListView):
         return context
 
 
-class CourseListView(TemplateView):
+class CourseListView(LoginRequiredMixin, TemplateView):
     """List view for the Course model"""
 
     template_name = "course/course-list.html"
@@ -65,7 +66,7 @@ class CourseListView(TemplateView):
         return context
 
 
-class CourseDetailView(DetailView):
+class CourseDetailView(LoginRequiredMixin, DetailView):
     """Detail view for the Course model"""
 
     template_name = "course/course-detail.html"

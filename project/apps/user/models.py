@@ -55,20 +55,25 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+    """Custom user model."""
+
     email = models.EmailField(
-        verbose_name="email address",
         max_length=255,
         unique=True,
+        verbose_name=_("email address"),
+        help_text=_("Email address"),
     )
     first_name = models.CharField(
         max_length=255,
         null=True,
         verbose_name=_("Firstname"),
+        help_text=_("First name"),
     )
     last_name = models.CharField(
         max_length=255,
         null=True,
         verbose_name=_("Lastname"),
+        help_text=_("Last name"),
     )
     username = None
 
@@ -78,9 +83,11 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
+        """Returns the string representation of the user."""
         return self.email
 
     def get_groups(self):
+        """Returns a list of groups the user belongs to"""
         return [group.name for group in self.groups.all()]
 
     get_groups.short_description = _("Groups")
@@ -88,14 +95,13 @@ class CustomUser(AbstractUser):
 
 class LastActiveManager(models.Manager):
     """
-    Manager for LastActive objects
-    Provides 2 utility methods
+    Manager for the LastActive model to handle last seen objects in the db.
     """
 
     def seen(self, user, force=False):
         """
-        Mask an user last on database seen
-        The last seen object is only updates is LAST_SEEN_INTERVAL seconds
+        Mask an user last on database seen.
+        The last seen object is only updates is LAST_SEEN_INTERVAL seconds.
         passed from last update or force=True
         """
         args = {"user": user}
@@ -114,20 +120,35 @@ class LastActiveManager(models.Manager):
         return seen
 
     def when(self, user):
+        """Returns the last seen timestamp for an user."""
         args = {"user": user}
         return self.filter(**args).latest("last_active").last_active
 
 
 class LastActive(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    last_active = models.DateTimeField(default=timezone.now)
+    """Model to store the last active timestamp for an user."""
+
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        verbose_name=_("User"),
+        help_text=_("User to store last active timestamp"),
+    )
+    last_active = models.DateTimeField(
+        default=timezone.now,
+        verbose_name=_("Last active"),
+        help_text=_("Last active timestamp"),
+    )
 
     objects = LastActiveManager()
 
     class Meta:
+        """Meta options for the LastActive model."""
+
         ordering = ("-last_active",)
 
     def __unicode__(self):
+        """Returns the string representation of the last active object."""
         return f"{self.user} on {self.last_active}"
 
 

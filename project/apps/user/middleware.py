@@ -1,3 +1,9 @@
+"""
+Module: user middleware
+
+This module contains the middleware for the user app.
+"""
+
 from .models import user_seen
 
 

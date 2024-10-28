@@ -1,4 +1,11 @@
+"""
+Module: core urls
+
+This module defines the URL patterns for the core app.
+"""
+
 from django.urls import path
+
 from .views import IndexView
 
 

@@ -1,0 +1,34 @@
+{% extends 'course/base.html' %} {% load static %} {% block content %}
+{% load static %}
+
+
+<div>
+  <h1>AJOJOJOJO</h1>
+  <br />
+    {% for course in courses %}
+        <div class="col-12 col-md-6 col-xl-3 p-3" style="border: 1px solid red; width: 100%; flex-direction: column">
+            {{course.title}}
+            <div>
+
+                {% for chapter in course.chapters.all %}
+                    {{ chapter.title }}
+                    <div >
+                        {% for section in chapter.sections.all %}
+                            {{ section.title }}
+                            <div style="text-align: left;">
+                                {{ section.content|safe }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        {% endfor %}
+
+      {% include "course/_partials/btn-back.html" %}
+      <!-- indent -->
+      {% include "course/_partials/admin_or_logout.html" %} {% endblock %}
+    </div>
+  </div>
+</div>

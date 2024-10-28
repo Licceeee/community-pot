@@ -1,12 +1,20 @@
+"""
+Module: user admin
+
+This module defines the admin for the user app.
+"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.apps import apps
+
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, LastActive
 
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
+    """Admin for the CustomUser model."""
+
     search_fields = ("email", "first_name", "last_name")
     readonly_fields = ["last_login", "date_joined", "is_superuser"]
     add_form = CustomUserCreationForm
@@ -68,6 +76,8 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(LastActive)
 class LastActiveAdmin(admin.ModelAdmin):
+    """Admin for the LastActive model."""
+
     list_filter = ("last_active",)
     search_fields = ("user__username",)
     list_display = ("user", "last_active")

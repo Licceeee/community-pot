@@ -1,3 +1,9 @@
+"""
+Module: core libs
+
+This module defines the core libraries for the core app.
+"""
+
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -21,5 +27,4 @@ def get_image_format(image, size):
             f"border-radius: 5px;"
             f'box-shadow: 0px 2px 17px -4px #6D8291;"/>'
         )
-    else:
-        return _("No Image Found")
+    return _("No Image Found")

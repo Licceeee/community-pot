@@ -1,4 +1,11 @@
+"""
+Module: global functions
+
+This module contains the global functions.
+"""
+
 import math
+
 from django.utils.html import format_html
 
 
@@ -6,11 +13,9 @@ def calc_min_or_hour(minutes):
     """Returns right format of minutes or hours
 
     Args:
-
         minutes (float): total minutes
 
     Returns:
-
         str: string with minutes or hours and minutes and definition
     """
     if minutes > 60:
@@ -33,5 +38,4 @@ def get_video_format(video_url, width, height):
             f"  allowfullscreen>"
             f"</iframe>"
         )
-    else:
-        return "No Video Found"
+    return "No Video Found"
