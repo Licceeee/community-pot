@@ -71,28 +71,21 @@
       {% endfor %}
     </div>
 
-    <div
-      style="
-        display: flex;
-        flex-direction: row;
-        gap: 2rem;
-        justify-content: center;
-      "
-    >
+    <div class="col-12 d-flex flex-column flex-sm-row mt-4" style="gap: 1rem">
       {% if previous_chapter %}
-      <div class="mt-4">
+      <div class="col-12 col-sm-6">
         <a
           href="{% url 'learncraft-chapter-details' previous_chapter.id %}"
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-secondary w-100"
         >
           Previous Chapter: {{ previous_chapter.title }}
         </a>
       </div>
       {% endif %} {% if next_chapter %}
-      <div class="mt-4">
+      <div class="col-12 col-sm-6">
         <a
           href="{% url 'learncraft-chapter-details' next_chapter.id %}"
-          class="btn btn-outline-primary"
+          class="btn btn-outline-primary w-100"
         >
           Next Chapter: {{ next_chapter.title }}
         </a>
