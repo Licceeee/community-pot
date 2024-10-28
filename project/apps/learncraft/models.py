@@ -51,6 +51,12 @@ class Course(models.Model):
         """Counts all sections across chapters in the course."""
         return sum(chapter.sections.count() for chapter in self.chapters.all())
 
+    def get_nr_chapters(self):
+        """Returns the number of chapters in the course."""
+        return self.chapters.count()
+
+    get_nr_chapters.short_description = _("Number of chapters")
+
 
 class Chapter(models.Model):
     """Model for a chapter."""
@@ -97,6 +103,12 @@ class Chapter(models.Model):
     def __str__(self):
         """Returns the string representation of the chapter."""
         return f"{self.title} - {self.course.title}"
+
+    def get_nr_sections(self):
+        """Returns the number of lessons in the chapter."""
+        return self.sections.count()
+
+    get_nr_sections.short_description = _("Number of lessons")
 
     def get_next_chapter(self):
         """
