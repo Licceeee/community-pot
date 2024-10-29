@@ -7,8 +7,13 @@
 
   {% endif %}
   <div class="p-2">
-    <a href="{% url 'admin:logout' %}" class="btn btn-outline-secondary">
-      Logout
-    </a>
+    <form
+      action="{% url 'admin:logout' %}"
+      method="post"
+      style="display: inline"
+    >
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-secondary">Logout</button>
+    </form>
   </div>
 </div>
