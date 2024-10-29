@@ -37,7 +37,7 @@ class CourseAdmin(SortableAdminBase, admin.ModelAdmin):
     """Admin class for the Course model."""
 
     inlines = [ChapterInline]
-    list_display = ("title", "created_at")
+    list_display = ("title", "get_nr_chapters", "created_at")
     search_fields = ("title",)
 
 
@@ -50,11 +50,13 @@ class ChapterAdmin(SortableAdminBase, admin.ModelAdmin):
         "title",
         "chapter_nr",
         "course",
+        "get_nr_sections",
         "created_at",
         "updated_at",
     )
     search_fields = ("title", "course__title")
     autocomplete_fields = ("course",)
+    list_filter = ("course",)
 
     def save_model(self, request, obj, form, change):
         """Override save_model to block non-superusers from saving."""
@@ -76,9 +78,20 @@ class SectionAdmin(admin.ModelAdmin):
     )
     search_fields = ("title", "chapter__title")
     autocomplete_fields = ("chapter",)
+    list_filter = ("chapter",)
 
     def save_model(self, request, obj, form, change):
         """Override save_model to block non-superusers from saving."""
         if not request.user.is_superuser:
             return  # Prevent saving the object
         super().save_model(request, obj, form, change)
+
+
+@admin.register(VideoUpload)
+class VideoUploadAdmin(admin.ModelAdmin):
+    """Admin class for the VideoUpload model."""
+
+    list_display = ("title", "chapter")
+    search_fields = ("title", "chapter__title")
+    autocomplete_fields = ("chapter",)
+    list_filter = ("chapter",)
