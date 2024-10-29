@@ -85,3 +85,13 @@ class SectionAdmin(admin.ModelAdmin):
         if not request.user.is_superuser:
             return  # Prevent saving the object
         super().save_model(request, obj, form, change)
+
+
+@admin.register(VideoUpload)
+class VideoUploadAdmin(admin.ModelAdmin):
+    """Admin class for the VideoUpload model."""
+
+    list_display = ("title", "chapter")
+    search_fields = ("title", "chapter__title")
+    autocomplete_fields = ("chapter",)
+    list_filter = ("chapter",)
